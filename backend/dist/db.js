@@ -11,8 +11,8 @@ mongoose_1.default
     .then(() => console.log("Mongo Connected"))
     .catch((err) => console.error("MongoDB Connection Error", err));
 const UserSchema = new mongoose_1.default.Schema({
-    userName: { type: String, unique: true },
-    password: String,
+    userName: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
 });
 const UserModel = mongoose_1.default.model("users", UserSchema);
 exports.UserModel = UserModel;
