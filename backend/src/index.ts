@@ -1,9 +1,9 @@
 import express from "express";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { UserModel } from "./db";
+import { JWT_USER_SECRET } from "./config";
 
 const app = express();
 app.use(express.json());
@@ -60,7 +60,39 @@ app.post("/api/v1/signup", async (req, res) => {
   }
 });
 
-app.post("/api/v1/signin", (req, res) => {});
+app.post("/api/v1/signin", async (req, res) => {
+  const { userName, password } = req.body;
+
+  const user = await UserModel.findOne({
+    userName: userName,
+  });
+
+  if (!user) {
+    res.status(403).json({
+      message: "Incorrect username",
+    });
+    return;
+  }
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    res.status(403).json({
+      message: "Invalid Password",
+    });
+    return;
+  }
+
+  const token = jwt.sign(
+    {
+      id: user._id.toString(),
+    },
+    JWT_USER_SECRET
+  );
+  res.json({
+    token,
+  });
+});
 
 app.post("/api/v1/content", (req, res) => {});
 

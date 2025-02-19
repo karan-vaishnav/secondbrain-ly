@@ -13,9 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_1 = require("zod");
 const db_1 = require("./db");
+const config_1 = require("./config");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -60,7 +62,31 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
 }));
-app.post("/api/v1/signin", (req, res) => { });
+app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userName, password } = req.body;
+    const user = yield db_1.UserModel.findOne({
+        userName: userName,
+    });
+    if (!user) {
+        res.status(403).json({
+            message: "Incorrect username",
+        });
+        return;
+    }
+    const passwordMatch = yield bcrypt_1.default.compare(password, user.password);
+    if (!passwordMatch) {
+        res.status(403).json({
+            message: "Invalid Password",
+        });
+        return;
+    }
+    const token = jsonwebtoken_1.default.sign({
+        id: user._id.toString(),
+    }, config_1.JWT_USER_SECRET);
+    res.json({
+        token,
+    });
+}));
 app.post("/api/v1/content", (req, res) => { });
 app.get("/api/v1/content", (req, res) => { });
 app.delete("/api/v1/content", (req, res) => { });
