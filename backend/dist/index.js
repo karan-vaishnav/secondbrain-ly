@@ -63,9 +63,9 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 }));
 app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
     const user = yield db_1.UserModel.findOne({
-        userName: userName,
+        userName: username,
     });
     if (!user) {
         res.status(403).json({

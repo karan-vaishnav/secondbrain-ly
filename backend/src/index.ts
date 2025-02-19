@@ -61,10 +61,10 @@ app.post("/api/v1/signup", async (req, res) => {
 });
 
 app.post("/api/v1/signin", async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
 
   const user = await UserModel.findOne({
-    userName: userName,
+    userName: username,
   });
 
   if (!user) {

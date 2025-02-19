@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { DB_CONN_STRING } from "./config";
 
 mongoose
