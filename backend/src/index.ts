@@ -34,7 +34,7 @@ app.post("/api/v1/signup", async (req, res) => {
     return;
   }
 
-  const userName = req.body.username;
+  const username = req.body.username;
   const password = req.body.password;
 
   let errorThrown = false;
@@ -43,7 +43,7 @@ app.post("/api/v1/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 5);
 
     await UserModel.create({
-      userName: userName,
+      username: username,
       password: hashedPassword,
     });
   } catch (e) {
@@ -64,7 +64,7 @@ app.post("/api/v1/signin", async (req, res) => {
   const { username, password } = req.body;
 
   const user = await UserModel.findOne({
-    userName: username,
+    username: username,
   });
 
   if (!user) {

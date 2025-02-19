@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { model } from "mongoose";
 import { DB_CONN_STRING } from "./config";
 
 mongoose
@@ -7,10 +8,9 @@ mongoose
   .catch((err) => console.error("MongoDB Connection Error", err));
 
 const UserSchema = new mongoose.Schema({
-  userName: { type: String, unique: true, required: true },
+  username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
 });
 
-const UserModel = mongoose.model("users", UserSchema);
+export const UserModel = model("users", UserSchema);
 
-export { UserModel };

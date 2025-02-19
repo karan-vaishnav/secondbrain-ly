@@ -40,13 +40,13 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
         return;
     }
-    const userName = req.body.username;
+    const username = req.body.username;
     const password = req.body.password;
     let errorThrown = false;
     try {
         const hashedPassword = yield bcrypt_1.default.hash(password, 5);
         yield db_1.UserModel.create({
-            userName: userName,
+            username: username,
             password: hashedPassword,
         });
     }
@@ -65,7 +65,7 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
 app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     const user = yield db_1.UserModel.findOne({
-        userName: username,
+        username: username,
     });
     if (!user) {
         res.status(403).json({
