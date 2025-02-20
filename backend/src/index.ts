@@ -2,9 +2,10 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { ContentModel, UserModel } from "./db";
+import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_USER_SECRET } from "./config";
 import { authMiddleware, AuthRequest } from "./middleware";
+import { random } from "./utils";
 
 const app = express();
 app.use(express.json());
@@ -142,13 +143,81 @@ app.delete("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
   });
 
   res.json({
-    message: "Deleted!"
-  })
+    message: "Deleted!",
+  });
 });
 
-app.post("/api/v1/secondbrain/share", (req, res) => {});
+app.post(
+  "/api/v1/secondbrain/share",
+  authMiddleware,
+  async (req: AuthRequest, res) => {
+    const { share } = req.body;
+    if (share) {
+      const existingLink = await LinkModel.findOne({
+        userId: req.userId,
+      });
+      if(existingLink){
+        res.json({
+          hash: existingLink.hash
+        });
+        return;
+      }
 
-app.get("/api/v1/secondbrain/:shareLink", (req, res) => {});
+      const hash = random(10);
+      await LinkModel.create({
+        userId: req.userId,
+        hash: hash,
+      });
+
+      res.json({
+        message: "/share/" + hash,
+      });
+    } else {
+      await LinkModel.deleteOne({
+        userId: req.userId,
+      });
+
+      res.json({
+        message: "Removed Link!",
+      });
+    }
+  }
+);
+
+app.get("/api/v1/secondbrain/:shareLink", async (req, res) => {
+  const hash = req.params.shareLink;
+
+  const link = await LinkModel.findOne({
+    hash,
+  });
+
+  if (!link) {
+    res.status(411).json({
+      message: "Sorry Incorrect input!",
+    });
+    return;
+  }
+
+  const content = await ContentModel.find({
+    userId: link.userId,
+  });
+
+  const user = await UserModel.findOne({
+    userId: link.userId,
+  });
+
+  if (!user) {
+    res.status(411).json({
+      message: "User not found, error should ideally not happen",
+    });
+    return;
+  }
+
+  res.json({
+    username: user.username,
+    content: content,
+  });
+});
 
 app.listen(5000, () => {
   console.log("Server is running on http://localhost:5000");

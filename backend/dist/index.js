@@ -19,6 +19,7 @@ const zod_1 = require("zod");
 const db_1 = require("./db");
 const config_1 = require("./config");
 const middleware_1 = require("./middleware");
+const utils_1 = require("./utils");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -125,11 +126,67 @@ app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __await
         userId: req.userId,
     });
     res.json({
-        message: "Deleted!"
+        message: "Deleted!",
     });
 }));
-app.post("/api/v1/secondbrain/share", (req, res) => { });
-app.get("/api/v1/secondbrain/:shareLink", (req, res) => { });
+app.post("/api/v1/secondbrain/share", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { share } = req.body;
+    if (share) {
+        const existingLink = yield db_1.LinkModel.findOne({
+            userId: req.userId,
+        });
+        if (existingLink) {
+            res.json({
+                hash: existingLink.hash
+            });
+            return;
+        }
+        const hash = (0, utils_1.random)(10);
+        yield db_1.LinkModel.create({
+            userId: req.userId,
+            hash: hash,
+        });
+        res.json({
+            message: "/share/" + hash,
+        });
+    }
+    else {
+        yield db_1.LinkModel.deleteOne({
+            userId: req.userId,
+        });
+        res.json({
+            message: "Removed Link!",
+        });
+    }
+}));
+app.get("/api/v1/secondbrain/:shareLink", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const hash = req.params.shareLink;
+    const link = yield db_1.LinkModel.findOne({
+        hash,
+    });
+    if (!link) {
+        res.status(411).json({
+            message: "Sorry Incorrect input!",
+        });
+        return;
+    }
+    const content = yield db_1.ContentModel.find({
+        userId: link.userId,
+    });
+    const user = yield db_1.UserModel.findOne({
+        userId: link.userId,
+    });
+    if (!user) {
+        res.status(411).json({
+            message: "User not found, error should ideally not happen",
+        });
+        return;
+    }
+    res.json({
+        username: user.username,
+        content: content,
+    });
+}));
 app.listen(5000, () => {
     console.log("Server is running on http://localhost:5000");
 });

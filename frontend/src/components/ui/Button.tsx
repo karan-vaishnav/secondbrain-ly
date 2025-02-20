@@ -1,27 +1,28 @@
 import { ReactElement } from "react";
 
 type Variant = "primary" | "secondary";
+type Size = "sm" | "md" | "lg";
 export interface ButtonProps {
   variant: Variant;
-  size: "sm" | "md" | "lg";
+  size: Size;
   text: string;
-  startIcon?: ReactElement;
-  endIcon?: ReactElement;
+  startIcon?: ReactElement | null;
+  endIcon?: ReactElement | null;
   onClick: () => void;
 }
 
-const varientStyles = {
+const varientStyles: Record<Variant, string> = {
   primary: "bg-indigo-600 text-white",
   secondary: "bg-indigo-100 text-indigo-600",
 };
 
-const defaultStyles = "rounded-md p-4 flex cursor-pointer m-2 items-center";
-
-const sizeStyles = {
-  sm: "py-1 px-2",
-  md: "py-2 px-4",
-  lg: "py-4 px-6",
+const sizeStyles: Record<Size, string> = {
+  sm: "py-1 px-2 text-sm",
+  md: "py-2 px-4 text-md",
+  lg: "py-4 px-6 text-lg",
 };
+
+const defaultStyles = "rounded-md p-4 flex cursor-pointer m-2 items-center";
 
 export const Button = (props: ButtonProps) => {
   return (
@@ -30,8 +31,9 @@ export const Button = (props: ButtonProps) => {
         sizeStyles[props.size]
       }`}
     >
-      {props.startIcon ? <div className="pr-2">{props.startIcon}</div> : null}{" "}
-      {props.text} {props.endIcon}
+      {props.startIcon && <span className="mr-2">{props.startIcon}</span>}
+      {props.text}
+      {props.endIcon && <span className="ml-2">{props.endIcon}</span>}
     </button>
   );
 };
