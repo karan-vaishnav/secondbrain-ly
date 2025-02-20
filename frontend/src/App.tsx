@@ -2,6 +2,7 @@
 import "./App.css";
 import { Button } from "./components/ui/Button";
 import { PlusIcon } from "./icons/PlusIcon";
+import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -9,22 +10,17 @@ function App() {
   return (
     <>
       <Button
-        startIcon={<PlusIcon />}
-        variant="primary"
-        text="Add Content"
-        size="sm"
-        onClick={() => {}}
-      />
-      <Button
+        startIcon={<ShareIcon size="md" />}
         variant="secondary"
-        text="Add Content"
+        text="Share Brain"
         size="md"
         onClick={() => {}}
       />
       <Button
-        variant="secondary"
+        startIcon={<PlusIcon size="md" />}
+        variant="primary"
         text="Add Content"
-        size="lg"
+        size="md"
         onClick={() => {}}
       />
     </>

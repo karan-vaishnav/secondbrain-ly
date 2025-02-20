@@ -12,10 +12,10 @@ export interface ButtonProps {
 
 const varientStyles = {
   primary: "bg-indigo-600 text-white",
-  secondary: "bg-indigo-300 text-indigo-600",
+  secondary: "bg-indigo-100 text-indigo-600",
 };
 
-const defaultStyles = "rounded-md p-4 flex cursor-pointer m-2";
+const defaultStyles = "rounded-md p-4 flex cursor-pointer m-2 items-center";
 
 const sizeStyles = {
   sm: "py-1 px-2",
