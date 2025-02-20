@@ -120,9 +120,8 @@ app.get("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(
     });
 }));
 app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const contentId = req.body.contentId;
-    yield db_1.ContentModel.deleteMany({
-        contentId,
+    yield db_1.ContentModel.deleteOne({
+        contentId: req.params.id,
         userId: req.userId,
     });
     res.json({
@@ -137,7 +136,7 @@ app.post("/api/v1/secondbrain/share", middleware_1.authMiddleware, (req, res) =>
         });
         if (existingLink) {
             res.json({
-                hash: existingLink.hash
+                hash: existingLink.hash,
             });
             return;
         }
@@ -174,7 +173,7 @@ app.get("/api/v1/secondbrain/:shareLink", (req, res) => __awaiter(void 0, void 0
         userId: link.userId,
     });
     const user = yield db_1.UserModel.findOne({
-        _id: link.userId
+        _id: link.userId,
     });
     if (!user) {
         res.status(411).json({

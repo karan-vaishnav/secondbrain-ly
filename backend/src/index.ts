@@ -135,10 +135,8 @@ app.get("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
 });
 
 app.delete("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
-  const contentId = req.body.contentId;
-
-  await ContentModel.deleteMany({
-    contentId,
+  await ContentModel.deleteOne({
+    contentId: req.params.id,
     userId: req.userId,
   });
 
@@ -156,9 +154,9 @@ app.post(
       const existingLink = await LinkModel.findOne({
         userId: req.userId,
       });
-      if(existingLink){
+      if (existingLink) {
         res.json({
-          hash: existingLink.hash
+          hash: existingLink.hash,
         });
         return;
       }
@@ -203,7 +201,7 @@ app.get("/api/v1/secondbrain/:shareLink", async (req, res) => {
   });
 
   const user = await UserModel.findOne({
-    _id: link.userId
+    _id: link.userId,
   });
 
   if (!user) {
