@@ -109,7 +109,12 @@ app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter
         res.status(500).json({ message: "Error adding content", error });
     }
 }));
-app.get("/api/v1/content", (req, res) => { });
+app.get("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = yield db_1.ContentModel.find({});
+    res.json({
+        content,
+    });
+}));
 app.delete("/api/v1/content", (req, res) => { });
 app.post("/api/v1/secondbrain/share", (req, res) => { });
 app.get("/api/v1/secondbrain/:shareLink", (req, res) => { });

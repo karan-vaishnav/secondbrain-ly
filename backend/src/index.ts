@@ -122,7 +122,13 @@ app.post(
   }
 );
 
-app.get("/api/v1/content", (req, res) => {});
+app.get("/api/v1/content", authMiddleware, async (req, res) => {
+  const content = await ContentModel.find({});
+
+  res.json({
+    content,
+  });
+});
 
 app.delete("/api/v1/content", (req, res) => {});
 
