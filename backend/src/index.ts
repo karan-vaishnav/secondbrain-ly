@@ -2,8 +2,9 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { UserModel } from "./db";
+import { ContentModel, UserModel } from "./db";
 import { JWT_USER_SECRET } from "./config";
+import { authMiddleware, AuthRequest } from "./middleware";
 
 const app = express();
 app.use(express.json());
@@ -94,7 +95,32 @@ app.post("/api/v1/signin", async (req, res) => {
   });
 });
 
-app.post("/api/v1/content", (req, res) => {});
+app.post(
+  "/api/v1/content",
+  authMiddleware,
+  async (req: AuthRequest, res): Promise<void> => {
+    try {
+      const type = req.body.type;
+      const link = req.body.link;
+      const title = req.body.title;
+      // const tags = req.body.tags;
+
+      await ContentModel.create({
+        type,
+        link,
+        title,
+        userId: req.userId,
+        tags: [],
+      });
+
+      res.json({
+        message: "Content Added!",
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error adding content", error });
+    }
+  }
+);
 
 app.get("/api/v1/content", (req, res) => {});
 

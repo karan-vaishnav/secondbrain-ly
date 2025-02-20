@@ -18,6 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_1 = require("zod");
 const db_1 = require("./db");
 const config_1 = require("./config");
+const middleware_1 = require("./middleware");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -87,7 +88,27 @@ app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
         token,
     });
 }));
-app.post("/api/v1/content", (req, res) => { });
+app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const type = req.body.type;
+        const link = req.body.link;
+        const title = req.body.title;
+        // const tags = req.body.tags;
+        yield db_1.ContentModel.create({
+            type,
+            link,
+            title,
+            userId: req.userId,
+            tags: [],
+        });
+        res.json({
+            message: "Content Added!",
+        });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error adding content", error });
+    }
+}));
 app.get("/api/v1/content", (req, res) => { });
 app.delete("/api/v1/content", (req, res) => { });
 app.post("/api/v1/secondbrain/share", (req, res) => { });
