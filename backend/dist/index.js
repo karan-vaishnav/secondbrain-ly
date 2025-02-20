@@ -110,12 +110,15 @@ app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter
     }
 }));
 app.get("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const content = yield db_1.ContentModel.find({});
+    const userId = req.userId;
+    const content = yield db_1.ContentModel.find({
+        userId: userId,
+    }).populate("userId", "username");
     res.json({
         content,
     });
 }));
-app.delete("/api/v1/content", (req, res) => { });
+app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
 app.post("/api/v1/secondbrain/share", (req, res) => { });
 app.get("/api/v1/secondbrain/:shareLink", (req, res) => { });
 app.listen(5000, () => {

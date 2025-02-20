@@ -122,15 +122,18 @@ app.post(
   }
 );
 
-app.get("/api/v1/content", authMiddleware, async (req, res) => {
-  const content = await ContentModel.find({});
+app.get("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
+  const userId = req.userId;
+  const content = await ContentModel.find({
+    userId: userId,
+  }).populate("userId", "username");
 
   res.json({
     content,
   });
 });
 
-app.delete("/api/v1/content", (req, res) => {});
+app.delete("/api/v1/content", authMiddleware, async (req, res) => {});
 
 app.post("/api/v1/secondbrain/share", (req, res) => {});
 
