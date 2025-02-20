@@ -7,22 +7,22 @@ export interface ButtonProps {
   size: Size;
   text: string;
   startIcon?: ReactElement | null;
-  endIcon?: ReactElement | null;
   onClick: () => void;
 }
 
-const varientStyles: Record<Variant, string> = {
+const varientStyles = {
   primary: "bg-indigo-600 text-white",
   secondary: "bg-indigo-100 text-indigo-600",
 };
 
-const sizeStyles: Record<Size, string> = {
+const sizeStyles = {
   sm: "py-1 px-2 text-sm",
   md: "py-2 px-4 text-md",
   lg: "py-4 px-6 text-lg",
 };
 
-const defaultStyles = "rounded-md p-4 flex cursor-pointer m-2 items-center";
+const defaultStyles =
+  "rounded-md p-4 flex cursor-pointer m-2 items-center font-light";
 
 export const Button = (props: ButtonProps) => {
   return (
@@ -33,7 +33,6 @@ export const Button = (props: ButtonProps) => {
     >
       {props.startIcon && <span className="mr-2">{props.startIcon}</span>}
       {props.text}
-      {props.endIcon && <span className="ml-2">{props.endIcon}</span>}
     </button>
   );
 };
