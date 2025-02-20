@@ -174,7 +174,7 @@ app.get("/api/v1/secondbrain/:shareLink", (req, res) => __awaiter(void 0, void 0
         userId: link.userId,
     });
     const user = yield db_1.UserModel.findOne({
-        userId: link.userId,
+        _id: link.userId
     });
     if (!user) {
         res.status(411).json({
