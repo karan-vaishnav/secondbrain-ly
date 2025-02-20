@@ -118,7 +118,16 @@ app.get("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(
         content,
     });
 }));
-app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const contentId = req.body.contentId;
+    yield db_1.ContentModel.deleteMany({
+        contentId,
+        userId: req.userId,
+    });
+    res.json({
+        message: "Deleted!"
+    });
+}));
 app.post("/api/v1/secondbrain/share", (req, res) => { });
 app.get("/api/v1/secondbrain/:shareLink", (req, res) => { });
 app.listen(5000, () => {

@@ -133,7 +133,18 @@ app.get("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
   });
 });
 
-app.delete("/api/v1/content", authMiddleware, async (req, res) => {});
+app.delete("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
+  const contentId = req.body.contentId;
+
+  await ContentModel.deleteMany({
+    contentId,
+    userId: req.userId,
+  });
+
+  res.json({
+    message: "Deleted!"
+  })
+});
 
 app.post("/api/v1/secondbrain/share", (req, res) => {});
 
