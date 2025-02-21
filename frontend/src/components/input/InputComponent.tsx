@@ -1,4 +1,10 @@
-export function Input({ onChange, placeholder }: { onChange: () => void }) {
+export function Input({
+  onChange,
+  placeholder,
+}: {
+  placeholder: string;
+  onChange: () => void;
+}) {
   return (
     <div className="rounded border shadow-md">
       <input

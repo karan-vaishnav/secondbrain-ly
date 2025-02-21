@@ -8,8 +8,9 @@ export function SidebarItems({
   icon: ReactElement;
 }) {
   return (
-    <div className="flex gap-4 cursor-pointer hover:bg-slate-100 rounded p-2 items-center">
-      {icon} {text}
+    <div className="flex gap-4 cursor-pointer hover:bg-slate-100 rounded p-2 items-center font-normal transition-all">
+      <div>{icon}</div>
+      <div className="text-lg hover:text-indigo-600 ">{text}</div>
     </div>
   );
 }
