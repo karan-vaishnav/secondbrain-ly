@@ -9,14 +9,14 @@ function App() {
   return (
     <>
       <Button
-        startIcon={<ShareIcon />}
+        startIcon={ShareIcon}
         variant="secondary"
         text="Share Brain"
         size="md"
         onClick={() => {}}
       />
       <Button
-        startIcon={<PlusIcon />}
+        startIcon={PlusIcon}
         variant="primary"
         text="Add Content"
         size="md"

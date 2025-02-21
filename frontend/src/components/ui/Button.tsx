@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React from "react";
 
 type Variant = "primary" | "secondary";
 type Size = "sm" | "md" | "lg";
@@ -6,7 +6,7 @@ export interface ButtonProps {
   variant: Variant;
   size: Size;
   text: string;
-  startIcon?: ReactElement | null;
+  startIcon?: (props: { size: Size }) => React.ReactNode;
   onClick: () => void;
 }
 
@@ -31,7 +31,9 @@ export const Button = (props: ButtonProps) => {
         sizeStyles[props.size]
       }`}
     >
-      {props.startIcon && <span className="mr-2">{props.startIcon}</span>}
+      {props.startIcon && (
+        <span className="mr-2">{props.startIcon({ size: props.size })}</span>
+      )}
       {props.text}
     </button>
   );
