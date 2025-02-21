@@ -23,7 +23,17 @@ function App() {
         onClick={() => {}}
       />
 
-      <Card />
+      <Card
+        type="twitter"
+        title="100xDevs"
+        link="https://x.com/kirat_tw/status/1892670402842771717"
+      />
+
+      <Card
+        type="youtube"
+        title="100xDevs"
+        link="https://www.youtube.com/watch?v=lueXr-LJJA0"
+      />
     </>
   );
 }
