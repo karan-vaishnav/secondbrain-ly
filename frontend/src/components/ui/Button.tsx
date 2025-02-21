@@ -22,7 +22,7 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "rounded-md p-4 flex cursor-pointer m-2 items-center font-light";
+  "rounded-md p-4 flex cursor-pointer items-center font-light";
 
 export const Button = (props: ButtonProps) => {
   return (

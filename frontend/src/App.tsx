@@ -7,34 +7,37 @@ import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
   return (
-    <>
-      <Button
-        startIcon={ShareIcon}
-        variant="secondary"
-        text="Share Brain"
-        size="md"
-        onClick={() => {}}
-      />
-      <Button
-        startIcon={PlusIcon}
-        variant="primary"
-        text="Add Content"
-        size="md"
-        onClick={() => {}}
-      />
+    <div className="p-4">
+      <div className="flex justify-end gap-4">
+        <Button
+          startIcon={ShareIcon}
+          variant="secondary"
+          text="Share Brain"
+          size="md"
+          onClick={() => {}}
+        />
+        <Button
+          startIcon={PlusIcon}
+          variant="primary"
+          text="Add Content"
+          size="md"
+          onClick={() => {}}
+        />
+      </div>
+      <div className="flex gap-2">
+        <Card
+          type="twitter"
+          title="100xDevs"
+          link="https://x.com/kirat_tw/status/1892670402842771717"
+        />
 
-      <Card
-        type="twitter"
-        title="100xDevs"
-        link="https://x.com/kirat_tw/status/1892670402842771717"
-      />
-
-      <Card
-        type="youtube"
-        title="100xDevs"
-        link="https://www.youtube.com/watch?v=lueXr-LJJA0"
-      />
-    </>
+        <Card
+          type="youtube"
+          title="100xDevs"
+          link="https://www.youtube.com/watch?v=lueXr-LJJA0"
+        />
+      </div>
+    </div>
   );
 }
 

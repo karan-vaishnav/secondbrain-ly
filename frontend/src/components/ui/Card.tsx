@@ -9,7 +9,7 @@ interface CardProps {
 export function Card({ title, type, link }: CardProps) {
   return (
     <div>
-      <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 max-w-70">
+      <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 max-w-72 min-h-48 min-w-72">
         <div className="flex items-center justify-between">
           <div className="flex items-center text-base">
             <div className="m-3">
@@ -30,7 +30,7 @@ export function Card({ title, type, link }: CardProps) {
           {type === "youtube" && (
             <iframe
               className="w-full"
-              src={link.replace("watch", "embed")}
+              src={link.replace("watch", "embed").replace("?v=", "/")}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
