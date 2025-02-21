@@ -1,13 +1,22 @@
-// import { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { Button } from "./components/ui/Button";
 import { Card } from "./components/ui/Card";
+import { CreateContentModel } from "./components/ui/CreateContentModel";
 import { PlusIcon } from "./icons/PlusIcon";
 import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
+  const [modelOpen, setModelOpen] = useState(true);
   return (
     <div className="p-4">
+      <CreateContentModel
+        open={modelOpen}
+        onClose={() => {
+          setModelOpen(false);
+        }}
+      />
+
       <div className="flex justify-end gap-4">
         <Button
           startIcon={ShareIcon}
@@ -21,7 +30,9 @@ function App() {
           variant="primary"
           text="Add Content"
           size="md"
-          onClick={() => {}}
+          onClick={() => {
+            setModelOpen(true);
+          }}
         />
       </div>
       <div className="flex gap-2">

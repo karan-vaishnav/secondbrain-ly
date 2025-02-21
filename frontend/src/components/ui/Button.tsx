@@ -7,7 +7,7 @@ export interface ButtonProps {
   size: Size;
   text: string;
   startIcon?: (props: { size: Size }) => React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const varientStyles = {
@@ -24,17 +24,20 @@ const sizeStyles = {
 const defaultStyles =
   "rounded-md p-4 flex cursor-pointer items-center font-light";
 
-export const Button = (props: ButtonProps) => {
+export const Button = ({
+  variant,
+  size,
+  text,
+  startIcon,
+  onClick,
+}: ButtonProps) => {
   return (
     <button
-      className={`${varientStyles[props.variant]} ${defaultStyles} ${
-        sizeStyles[props.size]
-      }`}
+      onClick={onClick}
+      className={`${varientStyles[variant]} ${defaultStyles} ${sizeStyles[size]}`}
     >
-      {props.startIcon && (
-        <span className="mr-2">{props.startIcon({ size: props.size })}</span>
-      )}
-      {props.text}
+      {startIcon && <span className="mr-2">{startIcon({ size })}</span>}
+      {text}
     </button>
   );
 };
