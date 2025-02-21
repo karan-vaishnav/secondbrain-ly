@@ -1,3 +1,4 @@
+import { DeleteIcon } from "../../icons/DeleteIcon";
 import { ShareIcon } from "../../icons/ShareIcon";
 
 interface CardProps {
@@ -22,7 +23,7 @@ export function Card({ title, type, link }: CardProps) {
               <ShareIcon size="md" />
             </div>
             <div className="m-2">
-              <ShareIcon size="md" />
+              <DeleteIcon size="md" />
             </div>
           </div>
         </div>
