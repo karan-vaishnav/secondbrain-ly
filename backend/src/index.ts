@@ -7,6 +7,7 @@ import { JWT_USER_SECRET } from "./config";
 import { authMiddleware, AuthRequest } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
+import { Request, Response } from "express";
 
 const app = express();
 app.use(express.json());
@@ -103,6 +104,8 @@ app.post(
   authMiddleware,
   async (req: AuthRequest, res): Promise<void> => {
     try {
+      console.log("Request body:", req.body);
+
       const type = req.body.type;
       const link = req.body.link;
       const title = req.body.title;
@@ -119,6 +122,7 @@ app.post(
         message: "Content Added!",
       });
     } catch (error) {
+      console.error("Error adding content:", error);
       res.status(500).json({ message: "Error adding content", error });
     }
   }
@@ -135,16 +139,35 @@ app.get("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
   });
 });
 
-app.delete("/api/v1/content", authMiddleware, async (req: AuthRequest, res) => {
-  await ContentModel.deleteOne({
-    contentId: req.params.id,
-    userId: req.userId,
-  });
+app.delete(
+  "/api/v1/content/:id",
+  authMiddleware,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const contentId = req.params.id;
+      const userId = (req as AuthRequest).userId;
 
-  res.json({
-    message: "Deleted!",
-  });
-});
+      if (!contentId) {
+        res.status(400).json({ message: "Content ID is required" });
+        return;
+      }
+
+      const result = await ContentModel.deleteOne({
+        _id: contentId,
+        userId: userId,
+      });
+
+      if (result.deletedCount === 0) {
+        res.status(404).json({ message: "Content not found or unauthorized" });
+        return;
+      }
+
+      res.json({ message: "Deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting content", error });
+    }
+  }
+);
 
 app.post(
   "/api/v1/secondbrain/share",

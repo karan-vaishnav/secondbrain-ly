@@ -93,6 +93,7 @@ app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("Request body:", req.body);
         const type = req.body.type;
         const link = req.body.link;
         const title = req.body.title;
@@ -108,6 +109,7 @@ app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter
         });
     }
     catch (error) {
+        console.error("Error adding content:", error);
         res.status(500).json({ message: "Error adding content", error });
     }
 }));
@@ -120,14 +122,27 @@ app.get("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(
         content,
     });
 }));
-app.delete("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield db_1.ContentModel.deleteOne({
-        contentId: req.params.id,
-        userId: req.userId,
-    });
-    res.json({
-        message: "Deleted!",
-    });
+app.delete("/api/v1/content/:id", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const contentId = req.params.id;
+        const userId = req.userId;
+        if (!contentId) {
+            res.status(400).json({ message: "Content ID is required" });
+            return;
+        }
+        const result = yield db_1.ContentModel.deleteOne({
+            _id: contentId,
+            userId: userId,
+        });
+        if (result.deletedCount === 0) {
+            res.status(404).json({ message: "Content not found or unauthorized" });
+            return;
+        }
+        res.json({ message: "Deleted successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error deleting content", error });
+    }
 }));
 app.post("/api/v1/secondbrain/share", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { share } = req.body;

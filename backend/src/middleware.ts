@@ -10,7 +10,11 @@ interface AuthRequest extends Request {
   userId?: string;
 }
 
-function authMiddleware(req: AuthRequest, res: Response, next: NextFunction):void {
+function authMiddleware(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): void {
   const header = req.headers["authorization"];
 
   if (!header) {

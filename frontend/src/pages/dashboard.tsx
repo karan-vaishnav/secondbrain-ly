@@ -12,17 +12,34 @@ import { BACKEND_URL } from "../config";
 function Dashboard() {
   const [modelOpen, setModelOpen] = useState(true);
   const { contents, refresh } = useContent();
+  const [localContents, setLocalContents] = useState(contents);
 
   useEffect(() => {
     refresh();
-  }, [modelOpen]);
+    setLocalContents(contents);
+  }, [modelOpen, contents]);
+
+  const handleDelete = async (id: string, index: number) => {
+    try {
+      await axios.delete(`${BACKEND_URL}/api/v1/content/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setLocalContents((prev) => prev.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error("Error deleting content:", error);
+      alert("Failed to delete content. Please try again.");
+    }
+  };
 
   return (
     <div className="flex">
       <div>
         <SideBar />
       </div>
-      <div className="p-4 ml-72 w-screen h-full h-min-screen bg-slate-100">
+      <div className="p-4 ml-72 w-screen h-screen h-min-screen bg-slate-100">
         <CreateContentModel
           open={modelOpen}
           onClose={() => {
@@ -42,10 +59,11 @@ function Dashboard() {
                   `${BACKEND_URL}/api/v1/secondbrain/share`,
                   {
                     share: true,
-                  },{
+                  },
+                  {
                     headers: {
-                      "Authorization": localStorage.getItem("token")
-                    }
+                      Authorization: localStorage.getItem("token"),
+                    },
                   }
                 );
                 const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
@@ -64,9 +82,15 @@ function Dashboard() {
           </div>
         </div>
         <div className="grid gap-2 grid-cols-4">
-          {contents.map(({ type, link, title }) => {
-            return <Card type={type} title={title} link={link} />;
-          })}
+          {localContents.map(({ _id, type, link, title }, index) => (
+            <Card
+              key={_id}
+              type={type}
+              title={title}
+              link={link}
+              onDelete={() => handleDelete(_id, index)}
+            />
+          ))}
         </div>
       </div>
     </div>

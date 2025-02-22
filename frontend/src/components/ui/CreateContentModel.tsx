@@ -8,6 +8,7 @@ import { BACKEND_URL } from "../../config";
 enum ContentType {
   Youtube = "youtube",
   Twitter = "twitter",
+  Link = "link",
 }
 
 export function CreateContentModel({ open, onClose }) {
@@ -71,6 +72,16 @@ export function CreateContentModel({ open, onClose }) {
                     size="sm"
                     onClick={() => {
                       setType(ContentType.Twitter);
+                    }}
+                  />
+                  <Button
+                    text="Link"
+                    variant={
+                      type === ContentType.Link ? "primary" : "secondary"
+                    }
+                    size="sm"
+                    onClick={() => {
+                      setType(ContentType.Link);
                     }}
                   />
                 </div>

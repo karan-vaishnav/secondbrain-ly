@@ -16,7 +16,7 @@ const UserSchema = new Schema({
 export const UserModel = model("users", UserSchema);
 
 const ContentSchema = new Schema({
-  type: { type: String, enum: ["youtube", "twitter"], required: true },
+  type: { type: String, enum: ["youtube", "twitter","link"], required: true },
   link: String,
   title: String,
   tags: [{ type: mongoose.Types.ObjectId, ref: "Tag" }],
