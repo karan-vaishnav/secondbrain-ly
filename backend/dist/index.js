@@ -20,8 +20,10 @@ const db_1 = require("./db");
 const config_1 = require("./config");
 const middleware_1 = require("./middleware");
 const utils_1 = require("./utils");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const UserSchema = zod_1.z.object({
         username: zod_1.z
@@ -53,7 +55,6 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
     catch (e) {
-        console.error("Signup Error:", e);
         res.status(403).json({
             message: "User Already Exist",
         });
@@ -95,7 +96,6 @@ app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter
         const type = req.body.type;
         const link = req.body.link;
         const title = req.body.title;
-        // const tags = req.body.tags;
         yield db_1.ContentModel.create({
             type,
             link,

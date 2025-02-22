@@ -6,9 +6,11 @@ import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_USER_SECRET } from "./config";
 import { authMiddleware, AuthRequest } from "./middleware";
 import { random } from "./utils";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post("/api/v1/signup", async (req, res) => {
   const UserSchema = z.object({
@@ -104,7 +106,6 @@ app.post(
       const type = req.body.type;
       const link = req.body.link;
       const title = req.body.title;
-      // const tags = req.body.tags;
 
       await ContentModel.create({
         type,

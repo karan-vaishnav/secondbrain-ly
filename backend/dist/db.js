@@ -17,7 +17,7 @@ const UserSchema = new mongoose_2.Schema({
 });
 exports.UserModel = (0, mongoose_2.model)("users", UserSchema);
 const ContentSchema = new mongoose_2.Schema({
-    type: { type: mongoose_1.default.Types.ObjectId, ref: "Types" },
+    type: { type: String, enum: ["youtube", "twitter"], required: true },
     link: String,
     title: String,
     tags: [{ type: mongoose_1.default.Types.ObjectId, ref: "Tag" }],
