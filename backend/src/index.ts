@@ -169,7 +169,7 @@ app.post(
       });
 
       res.json({
-        message: "/share/" + hash,
+        hash: hash,
       });
     } else {
       await LinkModel.deleteOne({

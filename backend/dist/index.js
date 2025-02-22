@@ -147,7 +147,7 @@ app.post("/api/v1/secondbrain/share", middleware_1.authMiddleware, (req, res) =>
             hash: hash,
         });
         res.json({
-            message: "/share/" + hash,
+            hash: hash,
         });
     }
     else {
