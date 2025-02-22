@@ -8,16 +8,58 @@ import { SideBar } from "../components/ui/SideBar";
 import { useContent } from "../hooks/useContent";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { ShareModal } from "../components/ui/ShareLinkModal";
+
+type ContentType = "link" | "twitter" | "youtube";
+
+interface Content {
+  _id: string;
+  link: string;
+  type: ContentType;
+  title: string;
+}
 
 function Dashboard() {
-  const [modelOpen, setModelOpen] = useState(true);
-  const { contents, refresh } = useContent();
-  const [localContents, setLocalContents] = useState(contents);
+  const [modelOpen, setModelOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+
+  const { contents, refresh } = useContent() as {
+    contents: Content[];
+    refresh: () => void;
+  };
+  const [localContents, setLocalContents] = useState<Content[]>(contents);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   useEffect(() => {
     refresh();
     setLocalContents(contents);
   }, [modelOpen, contents]);
+
+  const handleShare = async () => {
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/secondbrain/share`,
+        { share: true },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      const generatedShareUrl = `http://localhost:5173/share/${response.data.hash}`;
+      setShareUrl(generatedShareUrl);
+      setShareModalOpen(true);
+    } catch (error) {
+      console.error("Error sharing:", error);
+      alert("Failed to generate shareable link.");
+    }
+  };
+
+  const filteredContents =
+    selectedCategory === "all"
+      ? localContents
+      : localContents.filter((item) => item.type === selectedCategory);
 
   const handleDelete = async (id: string, index: number) => {
     try {
@@ -36,53 +78,38 @@ function Dashboard() {
 
   return (
     <div className="flex">
-      <div>
-        <SideBar />
-      </div>
+      <SideBar setSelectedCategory={setSelectedCategory} />
       <div className="p-4 ml-72 w-screen h-screen h-min-screen bg-slate-100">
         <CreateContentModel
           open={modelOpen}
-          onClose={() => {
-            setModelOpen(false);
-          }}
+          onClose={() => setModelOpen(false)}
         />
 
-        <div className="w-full mb-4">
-          <div className="flex justify-end gap-4">
-            <Button
-              startIcon={ShareIcon}
-              variant="secondary"
-              text="Share Brain"
-              size="md"
-              onClick={async () => {
-                const response = await axios.post(
-                  `${BACKEND_URL}/api/v1/secondbrain/share`,
-                  {
-                    share: true,
-                  },
-                  {
-                    headers: {
-                      Authorization: localStorage.getItem("token"),
-                    },
-                  }
-                );
-                const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
-                alert(shareUrl);
-              }}
-            />
-            <Button
-              startIcon={PlusIcon}
-              variant="primary"
-              text="Add Content"
-              size="md"
-              onClick={() => {
-                setModelOpen(true);
-              }}
-            />
-          </div>
+        <ShareModal
+          open={shareModalOpen}
+          onClose={() => setShareModalOpen(false)}
+          shareUrl={shareUrl}
+        />
+
+        <div className="w-full mb-4 flex justify-end gap-4">
+          <Button
+            startIcon={ShareIcon}
+            variant="secondary"
+            text="Share Brain"
+            size="md"
+            onClick={handleShare}
+          />
+          <Button
+            startIcon={PlusIcon}
+            variant="primary"
+            text="Add Content"
+            size="md"
+            onClick={() => setModelOpen(true)}
+          />
         </div>
+
         <div className="grid gap-2 grid-cols-4">
-          {localContents.map(({ _id, type, link, title }, index) => (
+          {filteredContents.map(({ _id, type, link, title }, index) => (
             <Card
               key={_id}
               type={type}

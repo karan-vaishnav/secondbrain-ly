@@ -104,8 +104,6 @@ app.post(
   authMiddleware,
   async (req: AuthRequest, res): Promise<void> => {
     try {
-      console.log("Request body:", req.body);
-
       const type = req.body.type;
       const link = req.body.link;
       const title = req.body.title;
@@ -122,7 +120,6 @@ app.post(
         message: "Content Added!",
       });
     } catch (error) {
-      console.error("Error adding content:", error);
       res.status(500).json({ message: "Error adding content", error });
     }
   }

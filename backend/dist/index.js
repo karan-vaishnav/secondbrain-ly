@@ -93,7 +93,6 @@ app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("Request body:", req.body);
         const type = req.body.type;
         const link = req.body.link;
         const title = req.body.title;
@@ -109,7 +108,6 @@ app.post("/api/v1/content", middleware_1.authMiddleware, (req, res) => __awaiter
         });
     }
     catch (error) {
-        console.error("Error adding content:", error);
         res.status(500).json({ message: "Error adding content", error });
     }
 }));

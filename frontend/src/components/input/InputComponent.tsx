@@ -1,12 +1,17 @@
-export function Input({ placeholder, ref }: { placeholder: string; ref?:any}) {
+import { forwardRef } from "react";
+
+export const Input = forwardRef<
+  HTMLInputElement,
+  { placeholder: string; type?: string }
+>(({ placeholder, type = "text" }, ref) => {
   return (
     <div className="rounded border shadow-md">
       <input
-      ref={ref}
+        ref={ref}
         placeholder={placeholder}
-        type={"text"}
-        className="px-4 py-2"
-      ></input>
+        type={type}
+        className="px-4 py-2 w-full"
+      />
     </div>
   );
-}
+});

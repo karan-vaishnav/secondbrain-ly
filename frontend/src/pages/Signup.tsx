@@ -30,7 +30,7 @@ export function Signup() {
         </h1>
         <div className="flex flex-col gap-4 m-4">
           <Input ref={usernameRef} placeholder="Username" />
-          <Input ref={passwordRef} placeholder="Password" />
+          <Input ref={passwordRef} placeholder="Password" type="password"/>
         </div>
         <div className="flex justify-center m-2 mb-5">
           <Button onClick={signup} variant="primary" text="Signup" size="md" />
