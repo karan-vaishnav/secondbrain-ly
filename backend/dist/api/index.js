@@ -11,6 +11,9 @@ app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
     res.send("Backend is running on Vercel!");
 });
-exports.default = (req, res) => {
-    return app(req, res);
-};
+// ✅ Ensure API Routes Are Available
+app.get("/api/v1/test", (req, res) => {
+    res.json({ message: "API is working on Vercel!" });
+});
+// ✅ Export the app for Vercel
+exports.default = app;

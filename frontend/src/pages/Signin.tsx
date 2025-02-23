@@ -27,14 +27,14 @@ export function Signin() {
     <div className="h-screen w-screen bg-slate-200 flex justify-center items-center">
       <div className="bg-white rounded min-w-48 flex flex-col gap-2">
         <h1 className="flex justify-center m-2 text-2xl font-semibold ">
-          Signin
+          Sign In
         </h1>
         <div className="flex flex-col gap-4 m-4">
           <Input ref={usernameRef} placeholder="Username" />
           <Input ref={passwordRef} placeholder="Password" type="password" />
         </div>
         <div className="flex justify-center m-2 mb-5">
-          <Button onClick={signin} variant="primary" text="Signup" size="md" />
+          <Button onClick={signin} variant="primary" text="Sign In" size="md" />
         </div>
       </div>
     </div>
