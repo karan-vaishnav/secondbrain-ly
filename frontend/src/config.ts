@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://secondbrain-tau.vercel.app/";
+export const BACKEND_URL = "https://secondbrain-api.vercel.app/";
