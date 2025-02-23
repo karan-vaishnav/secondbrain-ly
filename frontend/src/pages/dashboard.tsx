@@ -47,7 +47,7 @@ function Dashboard() {
           },
         }
       );
-      const generatedShareUrl = `http://localhost:5173/share/${response.data.hash}`;
+      const generatedShareUrl = `https://secondbrain-api.vercel.app/share/${response.data.hash}`;
       setShareUrl(generatedShareUrl);
       setShareModalOpen(true);
     } catch (error) {
