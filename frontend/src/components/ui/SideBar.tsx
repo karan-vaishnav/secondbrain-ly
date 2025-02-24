@@ -18,7 +18,7 @@ export function SideBar({
         className="cursor-pointer m-1 mb-5 flex gap-3 items-center font-semibold text-2xl"
       >
         <BrainIcon />
-        Second Brain
+        Second Brainly
       </div>
       <div className="m-4 flex flex-col gap-4">
         <SidebarItems

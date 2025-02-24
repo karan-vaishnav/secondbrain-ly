@@ -14,11 +14,13 @@ SecondBrain is a personal knowledge management app that allows users to save and
 ## Tech Stack
 
 ### Frontend:
+
 - **React** with **TypeScript**
 - **React Hooks** for state management
 - **Tailwind CSS** for styling
 
 ### Backend:
+
 - **Node.js** with **Express.js**
 - **MongoDB** for database
 - **Mongoose** with **TypeScript schemas, types, and interfaces**
@@ -28,44 +30,46 @@ SecondBrain is a personal knowledge management app that allows users to save and
 ## Installation & Setup
 
 ### Clone the repository:
+
 ```sh
 git clone https://github.com/yourusername/secondbrain.git
 cd secondbrain
 ```
 
 ### Install dependencies:
+
 ```sh
 npm install
 ```
 
 ### Set up environment variables:
-#### Create a ```.env``` file in the ```backend``` directory with:
+
+#### Create a `.env` file in the `backend` directory with:
+
 ```
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
 
 ### Run the application:
-#### Start the backend first:
-```
-cd backend
-npm run dev
-```
 
-#### Then, in a separate terminal, start the frontend:
-```
-cd frontend
-npm run dev
+#### Start the backend and frontend together:
+
+```sh
+cd backend && npm run dev
 ```
 
 ## Usage
+
 - Sign up and log in to start saving links.
 - Organize and categorize saved links for easy access.
 - Automatically categorize links as Twitter, YouTube, or Other.
 - Share your collection with others when needed.
 
 ## Contributing
+
 Feel free to submit issues and pull requests to improve SecondBrain.
 
 ## License
+
 This project is licensed under the **MIT License**.
