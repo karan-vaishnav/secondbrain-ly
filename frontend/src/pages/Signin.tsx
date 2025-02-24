@@ -4,6 +4,7 @@ import { Input } from "../components/input/InputComponent";
 import { Button } from "../components/ui/Button";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { BrainLogo } from "../icons/BrainLogo";
 
 export function Signin() {
   const usernameRef = useRef<HTMLInputElement | null>(null);
@@ -25,16 +26,37 @@ export function Signin() {
 
   return (
     <div className="h-screen w-screen bg-slate-200 flex justify-center items-center">
-      <div className="bg-white rounded min-w-48 flex flex-col gap-2">
-        <h1 className="flex justify-center m-2 text-2xl font-semibold ">
-          Sign In
-        </h1>
-        <div className="flex flex-col gap-4 m-4">
-          <Input ref={usernameRef} placeholder="Username" />
-          <Input ref={passwordRef} placeholder="Password" type="password" />
+      <div className="bg-white rounded min-w-48 flex gap-10">
+        <div className="flex flex-col gap-5 justify-center items-center m-2">
+          <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center gap-2">
+              <BrainLogo />
+            </div>
+            <div>
+              <h1 className="text-2xl">Second Brainly</h1>
+              <h2>Your Personal Knowledge Hub!</h2>
+            </div>
+          </div>
+          <div className="flex text-lg w-75 items-center justify-center">
+            <h3>Back to the Brain - Let's Get Smart</h3>
+          </div>
         </div>
-        <div className="flex justify-center m-2 mb-5">
-          <Button onClick={signin} variant="primary" text="Sign In" size="md" />
+        <div className="gap-2 felx flex-col">
+          <h1 className="flex justify-center m-2 text-2xl font-semibold ">
+            Sign In
+          </h1>
+          <div className="flex flex-col gap-4 m-4">
+            <Input ref={usernameRef} placeholder="Username" />
+            <Input ref={passwordRef} placeholder="Password" type="password" />
+          </div>
+          <div className="flex justify-center m-2 mb-5">
+            <Button
+              onClick={signin}
+              variant="primary"
+              text="Sign In"
+              size="md"
+            />
+          </div>
         </div>
       </div>
     </div>
