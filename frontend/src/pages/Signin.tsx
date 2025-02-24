@@ -3,7 +3,7 @@ import axios from "axios";
 import { Input } from "../components/input/InputComponent";
 import { Button } from "../components/ui/Button";
 import { BACKEND_URL } from "../config";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BrainLogo } from "../icons/BrainLogo";
 
 export function Signin() {
@@ -48,6 +48,14 @@ export function Signin() {
           <div className="flex flex-col gap-4 m-4">
             <Input ref={usernameRef} placeholder="Username" />
             <Input ref={passwordRef} placeholder="Password" type="password" />
+
+            <Link
+              to="/"
+              className="text-indigo-600 text-center 
+           text-sm underline"
+            >
+              Don't have an account?
+            </Link>
           </div>
           <div className="flex justify-center m-2 mb-5">
             <Button
