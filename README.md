@@ -1,4 +1,4 @@
-# SecondBrain🧠
+# SecondBrainly🧠
 
 SecondBrain is a personal knowledge management app that allows users to save and organize useful links for future reference. Users can also share their collection of saved resources with others.
 
