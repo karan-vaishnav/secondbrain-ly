@@ -9,6 +9,7 @@ enum ContentType {
   Youtube = "youtube",
   Twitter = "twitter",
   Link = "link",
+  Document = "document",
 }
 
 export function CreateContentModel({ open, onClose }) {
@@ -82,6 +83,16 @@ export function CreateContentModel({ open, onClose }) {
                     size="sm"
                     onClick={() => {
                       setType(ContentType.Link);
+                    }}
+                  />
+                  <Button
+                    text="Document"
+                    variant={
+                      type === ContentType.Document ? "primary" : "secondary"
+                    }
+                    size="sm"
+                    onClick={() => {
+                      setType(ContentType.Document);
                     }}
                   />
                 </div>

@@ -10,7 +10,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { ShareModal } from "../components/ui/ShareLinkModal";
 
-type ContentType = "link" | "twitter" | "youtube";
+type ContentType = "link" | "twitter" | "youtube" | "document";
 
 interface Content {
   _id: string;

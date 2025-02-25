@@ -5,12 +5,18 @@ import { TagsIcon } from "../../icons/TagsIcon";
 import { TwitterIcon } from "../../icons/TwitterIcon";
 import { YoutubeIcon } from "../../icons/YoutubeIcon";
 import { SidebarItems } from "./SidebarItems";
+import { LogOutIcon } from "../../icons/LogOutIcon";
 
 export function SideBar({
   setSelectedCategory,
 }: {
   setSelectedCategory: (category: string) => void;
 }) {
+  const handleLogOut = () => {
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
+    window.location.href = "/signin";
+  };
   return (
     <div className="h-screen bg-white shadow-sm border-r border-slate-200 w-72 fixed left-0 top-0 p-4">
       <div
@@ -45,6 +51,11 @@ export function SideBar({
           text="Tags"
           icon={<TagsIcon />}
           onClick={() => setSelectedCategory("tags")}
+        />
+        <SidebarItems
+          text="LogOut"
+          icon={<LogOutIcon size="md" />}
+          onClick={handleLogOut}
         />
       </div>
     </div>

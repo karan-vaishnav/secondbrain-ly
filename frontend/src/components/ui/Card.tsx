@@ -1,4 +1,5 @@
 import { DeleteIcon } from "../../icons/DeleteIcon";
+import { DocumentIcon } from "../../icons/DocumentIcon";
 import { LinkIcon } from "../../icons/LinkIcon";
 import { ShareIcon } from "../../icons/ShareIcon";
 import { TwitterIcon } from "../../icons/TwitterIcon";
@@ -7,7 +8,7 @@ import { YoutubeIcon } from "../../icons/YoutubeIcon";
 interface CardProps {
   title: string;
   link: string;
-  type: "twitter" | "youtube" | "link";
+  type: "twitter" | "youtube" | "link" | "document";
   onDelete: () => void;
 }
 
@@ -30,12 +31,16 @@ const getYouTubeEmbedUrl = (url: string) => {
   }
 };
 
-const getIconComponent = (type: "twitter" | "youtube" | "link") => {
+const getIconComponent = (
+  type: "twitter" | "youtube" | "link" | "document"
+) => {
   switch (type) {
     case "youtube":
       return <YoutubeIcon />;
     case "twitter":
       return <TwitterIcon />;
+    case "document":
+      return <DocumentIcon />;
     case "link":
     default:
       return <LinkIcon />;
