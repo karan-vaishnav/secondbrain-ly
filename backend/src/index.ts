@@ -11,13 +11,7 @@ import { Request, Response } from "express";
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://secondbrain-ly.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.post("/api/v1/signup", async (req, res) => {
   const UserSchema = z.object({
@@ -209,8 +203,8 @@ app.post(
   }
 );
 
-app.get("/share/:hash", async (req, res) => {
-  const hash = req.params.hash;
+app.get("/api/v1/secondbrain/:shareLink", async (req, res) => {
+  const hash = req.params.shareLink;
 
   const link = await LinkModel.findOne({
     hash,

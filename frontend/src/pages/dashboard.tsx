@@ -47,7 +47,7 @@ function Dashboard() {
           },
         }
       );
-      const generatedShareUrl = `${BACKEND_URL}/share/${response.data.hash}`;
+      const generatedShareUrl = `http://localhost:5173/api/v1/secondbrain/${response.data.hash}`;
       setShareUrl(generatedShareUrl);
       setShareModalOpen(true);
     } catch (error) {

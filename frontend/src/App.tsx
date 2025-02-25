@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/share/:hash" element={<SharedDashboard />} />
+        <Route path="/api/v1/secondbrain/:hash" element={<SharedDashboard />} />
       </Routes>
     </BrowserRouter>
   );

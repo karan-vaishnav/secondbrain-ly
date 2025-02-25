@@ -24,14 +24,15 @@ function SharedDashboard() {
       if (!hash) return;
 
       try {
-        const response = await axios.get(`${BACKEND_URL}/share/${hash}`);
-
-        console.log("API Response:", response.data);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/v1/secondbrain/${hash}`
+        );
 
         if (response.data) {
           setUsername(response.data.username);
           setContent(response.data.content);
         }
+        console.log(content);
       } catch (error) {
         console.error("Error fetching shared content:", error);
       }
@@ -48,8 +49,7 @@ function SharedDashboard() {
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           {username}'s Shared Brain
         </h1>
-
-        {content.length > 0 ? (
+        {content ? (
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {content.map(({ _id, type, link, title }) => (
               <Card key={_id} type={type} title={title} link={link} />
