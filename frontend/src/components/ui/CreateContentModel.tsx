@@ -21,20 +21,26 @@ export function CreateContentModel({ open, onClose }) {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-    await axios.post(
-      `${BACKEND_URL}/api/v1/content`,
-      {
-        link,
-        title,
-        type,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/content`,
+        {
+          link,
+          title,
+          type,
         },
-      }
-    );
-    onClose();
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log("Content added successfully:", response.data);
+      onClose();
+    } catch (error) {
+      console.error("Error adding content:", error);
+      alert("Failed to add content. Please try again.");
+    }
   }
 
   return (

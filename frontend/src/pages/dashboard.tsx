@@ -47,13 +47,18 @@ function Dashboard() {
           },
         }
       );
-      const generatedShareUrl = `https://secondbrain-api.vercel.app/share/${response.data.hash}`;
+      const generatedShareUrl = `${BACKEND_URL}/share/${response.data.hash}`;
       setShareUrl(generatedShareUrl);
       setShareModalOpen(true);
     } catch (error) {
       console.error("Error sharing:", error);
       alert("Failed to generate shareable link.");
     }
+  };
+
+  const handleCardShare = (link: string) => {
+    setShareUrl(link);
+    setShareModalOpen(true);
   };
 
   const filteredContents =
@@ -116,6 +121,7 @@ function Dashboard() {
               title={title}
               link={link}
               onDelete={() => handleDelete(_id, index)}
+              onShare={() => handleCardShare(link)}
             />
           ))}
         </div>

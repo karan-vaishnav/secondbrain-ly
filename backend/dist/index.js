@@ -172,8 +172,8 @@ app.post("/api/v1/secondbrain/share", middleware_1.authMiddleware, (req, res) =>
         });
     }
 }));
-app.get("/api/v1/secondbrain/:shareLink", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const hash = req.params.shareLink;
+app.get("/share/:hash", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const hash = req.params.hash;
     const link = yield db_1.LinkModel.findOne({
         hash,
     });

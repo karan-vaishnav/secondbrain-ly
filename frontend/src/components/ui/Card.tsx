@@ -9,7 +9,8 @@ interface CardProps {
   title: string;
   link: string;
   type: "twitter" | "youtube" | "link" | "document";
-  onDelete: () => void;
+  onDelete?: () => void;
+  onShare?: (shareUrl: string) => void;
 }
 
 const getYouTubeEmbedUrl = (url: string) => {
@@ -47,7 +48,19 @@ const getIconComponent = (
   }
 };
 
-export function Card({ title, type, link, onDelete }: CardProps) {
+const getDocumentPreviewUrl = (url: string) => {
+  if (url.endsWith(".pdf")) {
+    return url;
+  } else if (url.includes("drive.google.com")) {
+    return `https://docs.google.com/gview?url=${url}&embedded=true`;
+  } else if (url.endsWith(".doc") || url.endsWith(".docx")) {
+    return `https://view.officeapps.live.com/op/embed.aspx?src=${url}`;
+  }
+  return "";
+};
+
+export function Card({ title, type, link, onDelete, onShare }: CardProps) {
+  const documentPreviewUrl = getDocumentPreviewUrl(link);
   return (
     <div>
       <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 max-w-72 min-h-48 min-w-72">
@@ -57,7 +70,14 @@ export function Card({ title, type, link, onDelete }: CardProps) {
             {title}
           </div>
           <div className="flex">
-            <div className="m-2">
+            <div
+              className="m-2 cursor-pointer"
+              onClick={() => {
+                if (onShare) {
+                  onShare(link);
+                }
+              }}
+            >
               <ShareIcon size="md" />
             </div>
             <div className="m-2 cursor-pointer" onClick={onDelete}>
@@ -90,6 +110,29 @@ export function Card({ title, type, link, onDelete }: CardProps) {
                 Open Link
               </div>
             </a>
+          )}
+          {type === "document" && (
+            <div>
+              {documentPreviewUrl ? (
+                <iframe
+                  className="w-full h-56 border"
+                  src={documentPreviewUrl}
+                  title="Document Preview"
+                ></iframe>
+              ) : (
+                <p className="text-gray-600 text-center">
+                  Document preview is not available.
+                </p>
+              )}
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-2 p-2 bg-gray-100 rounded-md text-blue-600 text-center cursor-pointer"
+              >
+                Open Document
+              </a>
+            </div>
           )}
         </div>
         {/* <div>

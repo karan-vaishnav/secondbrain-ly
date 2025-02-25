@@ -1,7 +1,7 @@
 import { BrainIcon } from "../../icons/BrainIcon";
 import { DocumentIcon } from "../../icons/DocumentIcon";
 import { LinkIcon } from "../../icons/LinkIcon";
-import { TagsIcon } from "../../icons/TagsIcon";
+// import { TagsIcon } from "../../icons/TagsIcon";
 import { TwitterIcon } from "../../icons/TwitterIcon";
 import { YoutubeIcon } from "../../icons/YoutubeIcon";
 import { SidebarItems } from "./SidebarItems";
@@ -40,18 +40,18 @@ export function SideBar({
         <SidebarItems
           text="Documents"
           icon={<DocumentIcon />}
-          onClick={() => setSelectedCategory("documents")}
+          onClick={() => setSelectedCategory("document")}
         />
         <SidebarItems
           text="Links"
           icon={<LinkIcon />}
           onClick={() => setSelectedCategory("link")}
         />
-        <SidebarItems
+        {/* <SidebarItems
           text="Tags"
           icon={<TagsIcon />}
           onClick={() => setSelectedCategory("tags")}
-        />
+        /> */}
         <SidebarItems
           text="LogOut"
           icon={<LogOutIcon size="md" />}

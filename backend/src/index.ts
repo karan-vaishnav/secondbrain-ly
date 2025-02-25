@@ -203,8 +203,8 @@ app.post(
   }
 );
 
-app.get("/api/v1/secondbrain/:shareLink", async (req, res) => {
-  const hash = req.params.shareLink;
+app.get("/share/:hash", async (req, res) => {
+  const hash = req.params.hash;
 
   const link = await LinkModel.findOne({
     hash,

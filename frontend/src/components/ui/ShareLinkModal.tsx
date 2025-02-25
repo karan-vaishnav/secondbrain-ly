@@ -32,6 +32,7 @@ export function ShareModal({
           readOnly
           className="border p-2 rounded w-full mb-2"
         />
+
         <div className="flex justify-center gap-2">
           <Button
             variant="primary"
