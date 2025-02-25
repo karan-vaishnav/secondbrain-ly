@@ -9,8 +9,10 @@ import { LogOutIcon } from "../../icons/LogOutIcon";
 
 export function SideBar({
   setSelectedCategory,
+  showLogout = true,
 }: {
   setSelectedCategory: (category: string) => void;
+  showLogout?: boolean;
 }) {
   const handleLogOut = () => {
     localStorage.removeItem("authToken");
@@ -52,11 +54,13 @@ export function SideBar({
           icon={<TagsIcon />}
           onClick={() => setSelectedCategory("tags")}
         /> */}
-        <SidebarItems
-          text="LogOut"
-          icon={<LogOutIcon size="md" />}
-          onClick={handleLogOut}
-        />
+        {showLogout && (
+          <SidebarItems
+            text="LogOut"
+            icon={<LogOutIcon size="md" />}
+            onClick={handleLogOut}
+          />
+        )}
       </div>
     </div>
   );

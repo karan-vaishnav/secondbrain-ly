@@ -83,7 +83,7 @@ function Dashboard() {
 
   return (
     <div className="flex">
-      <SideBar setSelectedCategory={setSelectedCategory} />
+      <SideBar setSelectedCategory={setSelectedCategory} showLogout={true} />
       <div className="p-4 ml-72 w-screen h-screen h-min-screen bg-slate-100">
         <CreateContentModel
           open={modelOpen}

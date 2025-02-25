@@ -43,7 +43,7 @@ function SharedDashboard() {
 
   return (
     <div className="flex h-screen bg-slate-100">
-      <SideBar setSelectedCategory={() => {}} />
+      <SideBar setSelectedCategory={() => {}} showLogout={false}/>
 
       <div className="p-6 ml-72 w-full">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
