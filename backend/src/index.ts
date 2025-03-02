@@ -11,7 +11,13 @@ import { Request, Response } from "express";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://secondbrain-ly.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.post("/api/v1/signup", async (req, res) => {
   const UserSchema = z.object({
