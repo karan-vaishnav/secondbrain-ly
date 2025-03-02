@@ -10,7 +10,6 @@ import cors from "cors";
 import { Request, Response } from "express";
 
 const app = express();
-app.use(express.json());
 app.use(
   cors({
     origin: "https://secondbrain-ly.vercel.app",
@@ -18,6 +17,8 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.use(express.json());
 
 app.post("/api/v1/signup", async (req, res) => {
   const UserSchema = z.object({
