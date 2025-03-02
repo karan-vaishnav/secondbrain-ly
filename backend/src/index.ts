@@ -20,6 +20,11 @@ app.use(
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
 app.post("/api/v1/signup", async (req, res) => {
   const UserSchema = z.object({
     username: z
