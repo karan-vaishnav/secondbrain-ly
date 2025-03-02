@@ -12,9 +12,7 @@ import { Request, Response } from "express";
 const app = express();
 app.use(
   cors({
-    origin: "https://secondbrain-ly.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*",
   })
 );
 
