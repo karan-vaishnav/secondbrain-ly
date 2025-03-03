@@ -10,11 +10,11 @@ import cors from "cors";
 import { Request, Response } from "express";
 
 const app = express();
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors({
+  origin: "https://secondbrain-ly.vercel.app", 
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true 
+}));
 
 app.options("*", cors());
 

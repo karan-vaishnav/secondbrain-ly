@@ -24,8 +24,8 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     origin: "https://secondbrain-ly.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true
 }));
 app.options("*", (0, cors_1.default)());
 app.use(express_1.default.json());
@@ -212,3 +212,4 @@ app.get("/api/v1/secondbrain/:shareLink", (req, res) => __awaiter(void 0, void 0
 app.listen(5000, () => {
     console.log("Server is running on http://localhost:5000");
 });
+exports.default = app;
