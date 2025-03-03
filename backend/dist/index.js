@@ -22,12 +22,13 @@ const middleware_1 = require("./middleware");
 const utils_1 = require("./utils");
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: "https://secondbrain-ly.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true
-}));
-app.options("*", (0, cors_1.default)());
+app.use((0, cors_1.default)());
+// app.use(cors({
+//   origin: "https://secondbrain-ly.vercel.app",
+//   methods: "GET,POST,PUT,DELETE",
+//   credentials: true
+// }));
+// app.options("*", cors());
 app.use(express_1.default.json());
 app.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.url}`);
