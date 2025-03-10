@@ -25,7 +25,7 @@ export function Signup() {
 
   return (
     <div className="h-screen w-screen bg-slate-200 flex justify-center items-center">
-      <div className="bg-white rounded min-w-48 flex gap-10">
+      <div className="bg-white rounded min-w-48 sm:flex gap-10">
         <div className="flex flex-col gap-5 justify-center items-center m-2">
           <div className="flex justify-center items-center gap-2">
             <div className="flex justify-center items-center gap-2">
