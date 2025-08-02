@@ -14,12 +14,15 @@ const app = express();
 app.use(
   cors({
     origin: "https://secondbrain-ly.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
     credentials: true,
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
   })
 );
 
-// app.options("*", cors());
+// Explicit handling for preflight
+app.options("*", cors());
 
 app.use(express.json());
 
