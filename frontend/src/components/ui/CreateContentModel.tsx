@@ -48,7 +48,7 @@ export function CreateContentModel({ open, onClose }) {
       {open && (
         <div className="w-screen h-screen bg-zinc-900/70 fixed left-0 top-0 flex justify-center">
           <div className="flex flex-col justify-center">
-            <span className="bg-white rounded p-4 flex flex-col">
+            <span className="bg-white rounded p-4 flex flex-col w-full max-w-md mx-4 sm:mx-auto">
               <div className="flex justify-end mb-2">
                 <div onClick={onClose} className="cursor-pointer">
                   <CrossIcon size="md" />
@@ -60,7 +60,7 @@ export function CreateContentModel({ open, onClose }) {
               </div>
               <div>
                 <h1>Type</h1>
-                <div className="flex gap-1 m-2 items-center justify-center pb-2">
+                <div className="flex flex-wrap gap-2 m-2 items-center justify-center pb-2">
                   <Button
                     text="Youtube"
                     variant={

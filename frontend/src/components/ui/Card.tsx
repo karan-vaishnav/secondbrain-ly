@@ -63,7 +63,7 @@ export function Card({ title, type, link, onDelete, onShare }: CardProps) {
   const documentPreviewUrl = getDocumentPreviewUrl(link);
   return (
     <div>
-      <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 max-w-72 min-h-48 min-w-72">
+      <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 w-full min-h-[12rem]">
         <div className="flex items-center justify-between">
           <div className="flex items-center text-base">
             <div className="m-3">{getIconComponent(type)}</div>

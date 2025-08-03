@@ -18,9 +18,9 @@ const varientStyles = {
 };
 
 const sizeStyles = {
-  sm: "py-1 px-2 text-sm",
-  md: "py-2 px-4 text-md",
-  lg: "py-4 px-6 text-lg",
+  sm: "py-1 px-2 text-xs sm:text-sm",
+  md: "py-2 px-4 text-sm sm:text-md",
+  lg: "py-3 px-6 text-md sm:text-lg",
 };
 
 const defaultStyles =
