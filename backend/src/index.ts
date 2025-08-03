@@ -8,6 +8,7 @@ import { authMiddleware, AuthRequest } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
 import { Request, Response } from "express";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
 const app = express();
 // app.use(cors());
@@ -21,8 +22,9 @@ app.use(
   })
 );
 
-// Explicit handling for preflight
-app.options("*", cors());
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 
 app.use(express.json());
 
@@ -256,8 +258,12 @@ app.get("/api/v1/secondbrain/:shareLink", async (req, res) => {
   });
 });
 
-app.listen(5000, () => {
-  console.log("Server is running on http://localhost:5000");
-});
+// app.listen(5000, () => {
+//   console.log("Server is running on http://localhost:5000");
+// });
 
-export default app;
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  app(req, res);
+}
+
+// export default app;
