@@ -25,10 +25,13 @@ const app = (0, express_1.default)();
 // app.use(cors());
 app.use((0, cors_1.default)({
     origin: "https://secondbrain-ly.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
     credentials: true,
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
 }));
-// app.options("*", cors());
+// Explicit handling for preflight
+app.options("*", (0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.url}`);
