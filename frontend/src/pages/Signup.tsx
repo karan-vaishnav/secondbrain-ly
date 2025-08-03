@@ -15,12 +15,17 @@ export function Signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
 
-    await axios.post(BACKEND_URL + "/api/v1/signup", {
-      username,
-      password,
-    });
-    alert("SignedUp Succesfully!");
-    navigate("/signin");
+    try {
+      await axios.post(BACKEND_URL + "/api/v1/signup", { username, password });
+      alert("Signed Up Successfully!");
+      navigate("/signin");
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        alert(`Signup failed: ${error.response.data.message}`);
+      } else {
+        alert("Signup failed: Unknown error.");
+      }
+    }
   }
 
   return (
