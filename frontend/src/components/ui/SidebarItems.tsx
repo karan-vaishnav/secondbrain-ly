@@ -12,10 +12,12 @@ export function SidebarItems({
   return (
     <div
       onClick={onClick}
-      className="flex gap-4 cursor-pointer hover:bg-slate-100 rounded p-2 items-center font-normal transition-all"
+      className="flex gap-3 cursor-pointer hover:bg-slate-100 rounded p-2 items-center font-normal transition-all"
     >
       <div>{icon}</div>
-      <div className="text-lg hover:text-indigo-600 ">{text}</div>
+      <span className="hidden sm:inline text-lg hover:text-indigo-600">
+        {text}
+      </span>
     </div>
   );
 }

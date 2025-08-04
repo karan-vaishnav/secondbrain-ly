@@ -23,7 +23,7 @@ export function SideBar({
     <div
       className="
         h-screen bg-white shadow-sm border-r border-slate-200 fixed left-0 top-0 p-4
-        w-16 sm:w-24 md:w-48 lg:w-72
+        w-16 sm:w-20 md:w-40 lg:w-56 xl:w-72
         overflow-auto
         flex flex-col
       "
