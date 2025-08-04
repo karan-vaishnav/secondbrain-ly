@@ -63,32 +63,37 @@ export function Card({ title, type, link, onDelete, onShare }: CardProps) {
   const documentPreviewUrl = getDocumentPreviewUrl(link);
   return (
     <div>
-      <div className="p-3 bg-white rounded-md shadow-sm border border-slate-200 w-full min-h-[12rem]">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center text-base">
-            <div className="m-3">{getIconComponent(type)}</div>
-            {title}
+      <div className="p-4 bg-white rounded-xl shadow-md border border-slate-300 w-full min-h-[14rem] flex flex-col">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center space-x-3 text-base font-semibold truncate">
+            <div className="flex-shrink-0">{getIconComponent(type)}</div>
+            <span className="truncate">{title}</span>
           </div>
-          <div className="flex">
-            <div
-              className="m-2 cursor-pointer"
+          <div className="flex space-x-3 text-gray-500">
+            <button
+              className="p-1 rounded hover:bg-slate-100 transition"
               onClick={() => {
                 if (onShare) {
                   onShare(link);
                 }
               }}
+              aria-label="Share"
             >
               <ShareIcon size="md" />
-            </div>
-            <div className="m-2 cursor-pointer" onClick={onDelete}>
+            </button>
+            <button
+              className="p-1 rounded hover:bg-slate-100 transition"
+              onClick={onDelete}
+              aria-label="Delete"
+            >
               <DeleteIcon size="md" />
-            </div>
+            </button>
           </div>
         </div>
-        <div className="pt-4">
+        <div className="flex-1 pt-2">
           {type === "youtube" && (
             <iframe
-              className="w-full h-56"
+              className="w-full h-56 rounded-md shadow-sm"
               src={getYouTubeEmbedUrl(link)}
               title="YouTube video player"
               frameBorder="0"
@@ -99,28 +104,34 @@ export function Card({ title, type, link, onDelete, onShare }: CardProps) {
           )}
 
           {type === "twitter" && (
-            <blockquote className="twitter-tweet ">
+            <blockquote className="twitter-tweet w-full">
               <a href={link.replace("x.com", "twitter.com")}></a>
             </blockquote>
           )}
 
           {type === "link" && (
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              <div className="p-2 bg-gray-100 rounded-md text-blue-600 text-center cursor-pointer">
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className="p-3 bg-gray-100 rounded-md text-blue-600 text-center cursor-pointer hover:bg-gray-200 transition">
                 Open Link
               </div>
             </a>
           )}
+
           {type === "document" && (
             <div>
               {documentPreviewUrl ? (
                 <iframe
-                  className="w-full h-56 border"
+                  className="w-full h-56 rounded-md border border-slate-300 shadow-sm"
                   src={documentPreviewUrl}
                   title="Document Preview"
                 ></iframe>
               ) : (
-                <p className="text-gray-600 text-center">
+                <p className="text-gray-600 text-center py-12">
                   Document preview is not available.
                 </p>
               )}
@@ -128,21 +139,13 @@ export function Card({ title, type, link, onDelete, onShare }: CardProps) {
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block mt-2 p-2 bg-gray-100 rounded-md text-blue-600 text-center cursor-pointer"
+                className="block mt-3 p-3 bg-gray-100 rounded-md text-blue-600 text-center cursor-pointer hover:bg-gray-200 transition"
               >
                 Open Document
               </a>
             </div>
           )}
         </div>
-        {/* <div>
-          <div className="flex">
-            <div className="bg-indigo-100 text-indigo-600 rounded-2xl px-2 m-2 text-normal font-normal">
-              #Tag1
-            </div>
-          </div>
-        </div>
-        <div className="text-gray-400 font-normal">Added on 11/11/20024</div> */}
       </div>
     </div>
   );
