@@ -14,7 +14,7 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: ["https://secondbrain-ly.vercel.app", "http://localhost:5173"],
+    origin: "https://secondbrain-ly.vercel.app",
     credentials: true,
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: ["Content-Type", "Authorization"],
