@@ -1,20 +1,18 @@
-import { ReactElement } from "react";
-
 export function SidebarItems({
   text,
   icon,
   onClick,
 }: {
   text: string;
-  icon: ReactElement;
+  icon: React.ReactNode;
   onClick?: () => void;
 }) {
   return (
     <div
       onClick={onClick}
-      className="flex gap-3 cursor-pointer hover:bg-slate-100 rounded p-2 items-center font-normal transition-all"
+      className="flex items-center gap-3 cursor-pointer hover:bg-slate-100 rounded p-2 font-normal transition-all justify-center sm:justify-start"
     >
-      <div>{icon}</div>
+      {icon}
       <span className="hidden sm:inline text-lg hover:text-indigo-600">
         {text}
       </span>

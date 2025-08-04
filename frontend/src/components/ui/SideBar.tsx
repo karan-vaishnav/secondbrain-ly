@@ -22,20 +22,19 @@ export function SideBar({
   return (
     <div
       className="
-        h-screen bg-white shadow-sm border-r border-slate-200 fixed left-0 top-0 p-4
+        h-screen bg-white shadow-sm border-r border-slate-200 fixed left-0 top-0
         w-16 sm:w-20 md:w-40 lg:w-56 xl:w-72
-        overflow-auto
-        flex flex-col
+        overflow-auto flex flex-col py-4 px-1
       "
     >
       <div
         onClick={() => setSelectedCategory("all")}
-        className="cursor-pointer m-1 mb-5 flex gap-3 items-center font-semibold text-base sm:text-xl"
+        className="cursor-pointer mb-2 flex gap-2 items-center font-semibold text-base sm:text-xl justify-center sm:justify-start"
       >
         <BrainIcon />
         <span className="hidden sm:inline">Second Brainly</span>
       </div>
-      <div className="m-4 flex flex-col gap-4 flex-grow">
+      <div className="flex flex-col gap-2 flex-grow">
         <SidebarItems
           text="Tweets"
           icon={<TwitterIcon />}
@@ -56,8 +55,6 @@ export function SideBar({
           icon={<LinkIcon />}
           onClick={() => setSelectedCategory("link")}
         />
-        {/* Uncomment if tags are enabled */}
-        {/* <SidebarItems text="Tags" icon={<TagsIcon />} onClick={() => setSelectedCategory("tags")} /> */}
         {showLogout && (
           <SidebarItems
             text="LogOut"
